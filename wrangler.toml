@@ -1,0 +1,10 @@
+name = "golden-jubilee"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "./dist"
+
+# After running `npx wrangler d1 create golden-jubilee` on the correct account,
+# paste the database_id from the output below, then commit and push.
+[[d1_databases]]
+binding = "DB"
+database_name = "golden-jubilee"
+database_id = "YOUR_DATABASE_ID_HERE"

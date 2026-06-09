@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffaee"/>
+      <stop offset="100%" stop-color="#ede0a0"/>
+    </linearGradient>
+    <linearGradient id="agb" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1472"/>
+      <stop offset="100%" stop-color="#0d0840"/>
+    </linearGradient>
+    <linearGradient id="wrap" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#bf5300"/>
+      <stop offset="100%" stop-color="#7a3200"/>
+    </linearGradient>
+    <linearGradient id="gele" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#c9a20a"/>
+      <stop offset="100%" stop-color="#ffe082"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="300" height="400" fill="url(#bg1)"/>
+
+  <!-- Soft glow behind figures -->
+  <circle cx="105" cy="235" r="82" fill="#1e1472" fill-opacity="0.05"/>
+  <circle cx="197" cy="228" r="76" fill="#bf5300" fill-opacity="0.05"/>
+
+  <!-- Gold decorative border -->
+  <rect x="7" y="7" width="286" height="386" rx="5" fill="none" stroke="#d4af37" stroke-width="2" stroke-opacity="0.4"/>
+  <rect x="13" y="13" width="274" height="374" rx="4" fill="none" stroke="#d4af37" stroke-width="0.6" stroke-opacity="0.2"/>
+
+  <!-- Corner diamond ornaments -->
+  <path d="M16,16 L24,20 L16,24 L20,16Z" fill="#d4af37" fill-opacity="0.5"/>
+  <path d="M284,16 L276,20 L284,24 L280,16Z" fill="#d4af37" fill-opacity="0.5"/>
+  <path d="M16,384 L24,380 L16,376 L20,384Z" fill="#d4af37" fill-opacity="0.5"/>
+  <path d="M284,384 L276,380 L284,376 L280,384Z" fill="#d4af37" fill-opacity="0.5"/>
+
+  <!-- ======== MAN (centred x≈105) ======== -->
+
+  <!-- Neck -->
+  <rect x="98" y="149" width="14" height="20" rx="5" fill="#8b5e3c"/>
+
+  <!-- Face -->
+  <circle cx="105" cy="128" r="23" fill="#8b5e3c"/>
+
+  <!-- Chief's red cap (Okpu Ozo — iconic Igbo elder marker) -->
+  <rect x="82" y="90" width="46" height="26" rx="5" fill="#8b0000"/>
+  <rect x="80" y="106" width="50" height="8" rx="3" fill="#6b0000"/>
+
+  <!-- Feather plume on cap -->
+  <path d="M126,92 Q138,74 132,60 Q123,74 119,90Z" fill="#d4af37" fill-opacity="0.75"/>
+  <line x1="129" y1="72" x2="123" y2="90" stroke="#b8960c" stroke-width="0.6" stroke-opacity="0.5"/>
+
+  <!-- Agbada body (wide flowing navy robe) -->
+  <path d="M63,168 Q58,242 56,352 L154,352 Q152,242 147,168 Q127,156 105,154 Q83,156 63,168Z" fill="url(#agb)"/>
+
+  <!-- Wide agbada sleeves (signature feature) -->
+  <path d="M63,168 Q36,188 22,214 Q42,220 66,214 Q70,196 82,178Z" fill="#1e1472"/>
+  <path d="M147,168 Q174,188 178,214 Q158,220 134,214 Q130,196 118,178Z" fill="#1e1472"/>
+
+  <!-- Gold embroidery on chest (aso-oke lace panel) -->
+  <path d="M90,174 Q105,165 120,174 Q115,188 105,192 Q95,188 90,174Z" fill="#d4af37" fill-opacity="0.2"/>
+  <line x1="105" y1="165" x2="105" y2="194" stroke="#d4af37" stroke-width="1.2" stroke-opacity="0.38"/>
+  <line x1="91" y1="180" x2="119" y2="180" stroke="#d4af37" stroke-width="0.8" stroke-opacity="0.3"/>
+  <line x1="92" y1="187" x2="118" y2="187" stroke="#d4af37" stroke-width="0.6" stroke-opacity="0.22"/>
+
+  <!-- Right hand (holding staff) -->
+  <ellipse cx="149" cy="220" rx="9" ry="11" fill="#8b5e3c"/>
+
+  <!-- Traditional staff (ofo — symbol of authority) -->
+  <line x1="160" y1="352" x2="168" y2="150" stroke="#5c3200" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="168" cy="145" r="7" fill="#d4af37"/>
+  <circle cx="168" cy="145" r="3.5" fill="#ffe082"/>
+
+  <!-- ======== WOMAN (centred x≈195) ======== -->
+
+  <!-- Neck -->
+  <rect x="188" y="143" width="14" height="17" rx="5" fill="#7a4d2c"/>
+
+  <!-- Face -->
+  <circle cx="195" cy="122" r="21" fill="#7a4d2c"/>
+
+  <!-- Gele base layer (wraps tightly round head) -->
+  <path d="M174,121 Q174,100 195,96 Q216,100 216,121 Q208,109 195,107 Q182,109 174,121Z" fill="#c9a20a"/>
+
+  <!-- Main gele volume — dramatic tall festive fold -->
+  <path d="M172,117 Q166,92 170,67 Q182,46 195,43 Q208,46 220,67 Q224,92 218,117 Q206,101 195,99 Q184,101 172,117Z" fill="url(#gele)"/>
+
+  <!-- Gele top peak (fan shape) -->
+  <path d="M178,73 Q187,51 195,46 Q203,51 212,73 Q205,62 195,60 Q185,62 178,73Z" fill="#ffe082" fill-opacity="0.85"/>
+
+  <!-- Gele side fan fold -->
+  <path d="M218,91 Q230,74 225,60 Q217,73 214,89Z" fill="#ffe082" fill-opacity="0.55"/>
+
+  <!-- Gele fold detail line -->
+  <path d="M175,104 Q187,97 205,101" stroke="#c9a20a" stroke-width="1.5" fill="none" stroke-opacity="0.5"/>
+
+  <!-- Blouse (coral/orange — bright festive colour) -->
+  <path d="M175,160 Q171,208 170,256 Q182,262 195,263 Q208,262 220,256 Q219,208 215,160 Q205,148 195,146 Q185,148 175,160Z" fill="url(#wrap)"/>
+
+  <!-- Wrapper/iro skirt (deeper tone, different "print") -->
+  <path d="M169,232 Q165,278 167,352 L223,352 Q225,278 221,232Z" fill="#7a3200"/>
+
+  <!-- Wrapper tie knot at waist -->
+  <rect x="169" y="228" width="52" height="7" rx="3" fill="#c9a20a" fill-opacity="0.5"/>
+  <circle cx="195" cy="231" r="5" fill="#c9a20a" fill-opacity="0.6"/>
+
+  <!-- Coral bead necklace — ICONIC Igbo royal jewellery -->
+  <circle cx="181" cy="159" r="4"   fill="#ff5520"/>
+  <circle cx="189" cy="156" r="4"   fill="#ff5520"/>
+  <circle cx="197" cy="155" r="4"   fill="#ff5520"/>
+  <circle cx="205" cy="156" r="4"   fill="#ff5520"/>
+  <circle cx="213" cy="159" r="4"   fill="#e04010"/>
+  <!-- Second strand -->
+  <circle cx="184" cy="167" r="3"   fill="#e04010" fill-opacity="0.8"/>
+  <circle cx="192" cy="164" r="3"   fill="#e04010" fill-opacity="0.8"/>
+  <circle cx="200" cy="163" r="3"   fill="#e04010" fill-opacity="0.8"/>
+  <circle cx="208" cy="164" r="3"   fill="#e04010" fill-opacity="0.8"/>
+
+  <!-- ======== DECORATIVE / SHARED ======== -->
+
+  <!-- Sparkle stars (4-point) -->
+  <path d="M36,52 L38,58 L44,60 L38,62 L36,68 L34,62 L28,60 L34,58Z"     fill="#d4af37" fill-opacity="0.55"/>
+  <path d="M256,46 L258,52 L264,54 L258,56 L256,62 L254,56 L248,54 L254,52Z" fill="#d4af37" fill-opacity="0.55"/>
+  <path d="M150,26 L152,31 L157,33 L152,35 L150,40 L148,35 L143,33 L148,31Z" fill="#d4af37" fill-opacity="0.5"/>
+  <path d="M27,337 L29,342 L34,344 L29,346 L27,351 L25,346 L20,344 L25,342Z"  fill="#d4af37" fill-opacity="0.4"/>
+  <path d="M267,330 L269,335 L274,337 L269,339 L267,344 L265,339 L260,337 L265,335Z" fill="#d4af37" fill-opacity="0.4"/>
+
+  <!-- Sparkle dots -->
+  <circle cx="26"  cy="78"  r="2"   fill="#d4af37" fill-opacity="0.28"/>
+  <circle cx="42"  cy="60"  r="1.5" fill="#d4af37" fill-opacity="0.28"/>
+  <circle cx="264" cy="70"  r="2"   fill="#d4af37" fill-opacity="0.28"/>
+  <circle cx="276" cy="86"  r="1.5" fill="#d4af37" fill-opacity="0.28"/>
+  <circle cx="22"  cy="356" r="1.8" fill="#d4af37" fill-opacity="0.25"/>
+  <circle cx="278" cy="350" r="1.5" fill="#d4af37" fill-opacity="0.25"/>
+  <circle cx="148" cy="38"  r="2"   fill="#d4af37" fill-opacity="0.25"/>
+
+  <!-- Bottom text -->
+  <line x1="50" y1="369" x2="96"  y2="369" stroke="#d4af37" stroke-width="0.8" stroke-opacity="0.4"/>
+  <line x1="204" y1="369" x2="250" y2="369" stroke="#d4af37" stroke-width="0.8" stroke-opacity="0.4"/>
+  <text x="150" y="367" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#6b4c00" font-style="italic" letter-spacing="0.4">Chief Engr &amp; Lolo Cosmas Onwuneme</text>
+  <text x="150" y="381" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#8b6914" letter-spacing="2" fill-opacity="0.65">50 YEARS OF GOD'S FAITHFULNESS</text>
+  <text x="119" y="393" text-anchor="middle" font-family="serif" font-size="10" fill="#d4af37" fill-opacity="0.45">♥</text>
+  <text x="150" y="393" text-anchor="middle" font-family="serif" font-size="10" fill="#d4af37" fill-opacity="0.5">♥</text>
+  <text x="181" y="393" text-anchor="middle" font-family="serif" font-size="10" fill="#d4af37" fill-opacity="0.45">♥</text>
+</svg>

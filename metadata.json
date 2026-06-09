@@ -1,0 +1,6 @@
+{
+  "name": "Golden Jubilee Heritage",
+  "description": "Celebrating 50 years of enduring love, strength, and cultural pride wrapped in modern Igbo heritage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
