@@ -52,8 +52,8 @@ function loginPage(error = false): Response {
       margin-bottom: 0.4rem;
     }
     .subtitle {
-      font-size: 0.95rem;
-      color: rgba(255,224,130,0.5);
+      font-size: 1.15rem;
+      color: rgba(255,224,130,0.6);
       font-style: italic;
       margin-bottom: 2rem;
     }
