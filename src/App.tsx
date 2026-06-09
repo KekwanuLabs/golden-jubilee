@@ -164,7 +164,7 @@ function Footer() {
           </h3>
 
           <p className="font-heading text-[#3d2800] text-base md:text-lg uppercase tracking-[0.25em] font-bold mb-3">
-            Chief Engr &amp; Lolo Cosmas Onwuneme
+            Chief Engr &amp; Lolo Cosmas U. Onwuneme
           </p>
 
           <p className="font-serif italic text-[#7a5c00] text-base md:text-lg">

@@ -185,7 +185,7 @@ export default function Tributes() {
             <span className="text-amber-600 text-base tracking-widest">✦ ❖ ✦</span>
           </div>
           <p className="font-serif text-[#3d2800] text-lg italic max-w-xl mx-auto mt-4 font-light">
-            Words of honour from the children, grandchildren, family, and friends who love Chief Engr &amp; Lolo Cosmas Onwuneme.
+            Words of honour from the children, grandchildren, family, and friends who love Chief Engr &amp; Lolo Cosmas U. Onwuneme.
           </p>
         </motion.div>
 

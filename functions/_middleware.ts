@@ -109,7 +109,7 @@ function loginPage(error = false): Response {
   <div class="card">
     <div class="ornament">✦ ❖ ✦</div>
     <h1>Golden Jubilee 2026</h1>
-    <p class="subtitle">Chief Engr & Lolo C.U Onwuneme</p>
+    <p class="subtitle">Chief Engr & Lolo Cosmas U. Onwuneme</p>
     <form method="POST" action="${AUTH_PATH}">
       <input type="password" name="password" placeholder="Enter password" autofocus autocomplete="current-password" />
       <button type="submit">Enter</button>

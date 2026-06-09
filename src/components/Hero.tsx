@@ -96,7 +96,7 @@ function CouplePhoto() {
         {!failed ? (
           <img
             src={src}
-            alt="Chief Engr & Lolo Cosmas Onwuneme"
+            alt="Chief Engr & Lolo Cosmas U. Onwuneme"
             className="w-full h-full object-cover object-center"
             onError={handleError}
           />
@@ -323,7 +323,7 @@ export default function Hero({ onScrollToEvent }: HeroProps) {
 
           <motion.h2 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.25, duration: 0.7 }}
             className="font-heading font-bold text-[#2d1f00] text-lg md:text-2xl lg:text-3xl tracking-wide mb-1">
-            Chief Engr &amp; Lolo Cosmas Onwuneme
+            Chief Engr &amp; Lolo Cosmas U. Onwuneme
           </motion.h2>
 
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.35, duration: 0.6 }}
