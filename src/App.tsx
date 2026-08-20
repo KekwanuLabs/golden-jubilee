@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Menu, X } from 'lucide-react';
+import { Mail, Menu, Share2, X } from 'lucide-react';
 import Hero from './components/Hero';
 import EventSection from './components/EventSection';
 import Gallery from './components/Gallery';
@@ -15,6 +15,7 @@ const NAV_LINKS = [
 ];
 
 function InvitationDialog({ onClose }: { onClose: () => void }) {
+  const [shared, setShared] = useState(false);
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
     document.body.style.overflow = 'hidden';
@@ -22,12 +23,26 @@ function InvitationDialog({ onClose }: { onClose: () => void }) {
     return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKeyDown); };
   }, [onClose]);
 
+  const shareInvitation = async () => {
+    const invitationUrl = new URL('/images/gallery/invitation.jpg', window.location.origin).toString();
+    if (navigator.share) {
+      await navigator.share({ title: 'Golden Jubilee Invitation', text: 'Join us for the Golden Jubilee celebration.', url: invitationUrl });
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(invitationUrl);
+      setShared(true);
+      window.setTimeout(() => setShared(false), 2500);
+    }
+  };
+
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="invitation-title" className="fixed inset-0 z-[70] bg-[#1a1000]/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8" onClick={onClose}>
       <div className="relative max-w-3xl w-full max-h-[92vh] rounded-2xl p-2 md:p-3 bg-gradient-to-br from-[#ffe082] via-[#d4af37] to-[#8b6914] shadow-[0_24px_90px_rgba(0,0,0,0.55)]" onClick={event => event.stopPropagation()}>
         <div className="relative rounded-xl overflow-hidden bg-[#fdf6e3] p-2 md:p-4">
           <img src="/images/gallery/invitation.jpg" alt="Golden Jubilee invitation" className="relative mx-auto max-h-[84vh] w-auto max-w-full object-contain rounded-lg shadow-lg" />
-          <button type="button" aria-label="Close invitation" onClick={onClose} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#2d1f00]/85 text-amber-100 border border-amber-300/40 flex items-center justify-center hover:bg-[#2d1f00] transition-colors"><X className="w-5 h-5" /></button>
+          <div className="absolute top-4 right-4 flex gap-2">
+            <button type="button" aria-label="Share invitation" onClick={shareInvitation} className="w-10 h-10 rounded-full bg-[#2d1f00]/85 text-amber-100 border border-amber-300/40 flex items-center justify-center hover:bg-[#2d1f00] transition-colors" title={shared ? 'Link copied' : 'Share invitation'}><Share2 className="w-4 h-4" /></button>
+            <button type="button" aria-label="Close invitation" onClick={onClose} className="w-10 h-10 rounded-full bg-[#2d1f00]/85 text-amber-100 border border-amber-300/40 flex items-center justify-center hover:bg-[#2d1f00] transition-colors"><X className="w-5 h-5" /></button>
+          </div>
           <span id="invitation-title" className="sr-only">Golden Jubilee invitation</span>
         </div>
       </div>
