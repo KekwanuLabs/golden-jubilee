@@ -281,12 +281,12 @@ export default function Hero({ onScrollToEvent }: HeroProps) {
           </motion.p>
 
           <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65, duration: 0.7 }}
-            className="font-heading text-[#5c4500] text-sm md:text-base tracking-[0.25em] uppercase mb-2">
+            className="font-heading text-[#5c4500] text-sm md:text-base tracking-[0.25em] uppercase mb-4">
             Our Parents'
           </motion.p>
 
           {/* Script title */}
-          <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.8, duration: 0.9, ease: 'easeOut' }}>
+          <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.8, duration: 0.9, ease: 'easeOut' }} className="mb-4">
             <h1 className="font-display leading-none select-none" style={{
               fontSize: 'clamp(4rem, 10vw, 8rem)',
               color: '#c9920c',
@@ -304,7 +304,7 @@ export default function Hero({ onScrollToEvent }: HeroProps) {
           </motion.div>
 
           <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 0.6 }}
-            className="font-heading text-[#5c4500] text-sm md:text-lg tracking-[0.22em] uppercase mt-2 mb-5">
+            className="font-heading text-[#5c4500] text-sm md:text-lg tracking-[0.22em] uppercase mt-1 mb-5">
             Celebration
           </motion.p>
 

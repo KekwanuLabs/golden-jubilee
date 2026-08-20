@@ -32,12 +32,7 @@ const seedTributes = [
   { id: 'seed-fr1', author: 'Chief Mrs. [Family Friend]', relation: 'Friend', message: "I have known this couple since we were young. Seeing them today, wrapped in gold and grace, fills my heart with indescribable joy. Their union has always been a quiet miracle. Fifty years of this is proof that God is very real and very good. Eze na-adili unu oo!", createdAt: '2026-11-28', avatarInitials: 'FF', avatarGradient: AVATAR_GRADIENTS[3], isFeatured: false },
 ];
 
-const seedRsvp = [
-  { id: 'seed-r1', name: 'The Obi Family',       attending: true,  guests: 4, message: 'We cannot wait to celebrate with you.', timestamp: '2026-10-01' },
-  { id: 'seed-r2', name: 'Dr. Nneka Chukwu',     attending: true,  guests: 2, message: 'Congratulations on this beautiful milestone.', timestamp: '2026-10-03' },
-  { id: 'seed-r3', name: 'Engineer Emeka Nwosu', attending: true,  guests: 3, message: '', timestamp: '2026-10-05' },
-  { id: 'seed-r4', name: 'The Eze Family',        attending: false, guests: 0, message: '', timestamp: '2026-10-07' },
-];
+const seedRsvp: Array<{ id: string; name: string; attending: boolean; guests: number; message: string; timestamp: string }> = [];
 
 const CHILD_NAMES = ['Chinedu', 'Chukwuma', 'Ijeoma', 'Kelechukwu', 'Okechukwu', 'Chukwunonso'];
 seedTributes.slice(0, 6).forEach((tribute, index) => {

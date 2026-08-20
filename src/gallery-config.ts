@@ -27,13 +27,4 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     span: 'wide',
     placeholderGradient: 'linear-gradient(135deg, #2a1800 0%, #7a5d10 50%, #e0bc50 100%)',
   },
-  {
-    id: 3,
-    src: '/images/gallery/invitation.jpg',
-    year: '2026',
-    title: 'The Golden Jubilee Invitation',
-    caption: 'Tuesday, 29th December 2026 · Umuago-Urualla',
-    span: 'tall',
-    placeholderGradient: 'linear-gradient(135deg, #3a2600 0%, #8b6c00 40%, #d4af37 70%, #ffe082 100%)',
-  },
 ];

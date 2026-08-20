@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Mail, Menu, X } from 'lucide-react';
 import Hero from './components/Hero';
 import EventSection from './components/EventSection';
 import Gallery from './components/Gallery';
@@ -14,10 +14,32 @@ const NAV_LINKS = [
   { href: '#guestbook', label: 'Guestbook'   },
 ];
 
+function InvitationDialog({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKeyDown); };
+  }, [onClose]);
+
+  return (
+    <div role="dialog" aria-modal="true" aria-labelledby="invitation-title" className="fixed inset-0 z-[70] bg-[#1a1000]/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8" onClick={onClose}>
+      <div className="relative max-w-3xl w-full max-h-[92vh] rounded-2xl p-2 md:p-3 bg-gradient-to-br from-[#ffe082] via-[#d4af37] to-[#8b6914] shadow-[0_24px_90px_rgba(0,0,0,0.55)]" onClick={event => event.stopPropagation()}>
+        <div className="relative rounded-xl overflow-hidden bg-[#fdf6e3] p-2 md:p-4">
+          <img src="/images/gallery/invitation.jpg" alt="Golden Jubilee invitation" className="relative mx-auto max-h-[84vh] w-auto max-w-full object-contain rounded-lg shadow-lg" />
+          <button type="button" aria-label="Close invitation" onClick={onClose} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#2d1f00]/85 text-amber-100 border border-amber-300/40 flex items-center justify-center hover:bg-[#2d1f00] transition-colors"><X className="w-5 h-5" /></button>
+          <span id="invitation-title" className="sr-only">Golden Jubilee invitation</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Navigation() {
   const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive]         = useState('');
+  const [invitationOpen, setInvitationOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -62,7 +84,7 @@ function Navigation() {
           <span className="font-heading font-bold text-lg md:text-xl tracking-[0.12em] uppercase text-[#7a5c00] group-hover:text-[#b8860b] transition-colors">
             Onwuneme
           </span>
-          <span className="font-serif italic text-[#8b6914] text-sm">Golden Jubilee · 2026</span>
+          <span className="font-serif italic text-[#8b6914] text-base md:text-lg">Golden Jubilee · 2026</span>
         </button>
 
         {/* Desktop links */}
@@ -77,6 +99,7 @@ function Navigation() {
               {active === link.href && <motion.span layoutId="active-nav-indicator" className="absolute left-0 right-0 -bottom-[1px] h-[3px] rounded-full" style={{ background: 'linear-gradient(to right, #b8860b, #ffe082, #b8860b)', boxShadow: '0 0 10px rgba(212,175,55,0.55)' }} transition={{ type: 'spring', stiffness: 420, damping: 32 }} />}
             </button>
           ))}
+          <button type="button" onClick={() => setInvitationOpen(true)} className="relative flex items-center gap-1.5 font-heading font-semibold text-sm uppercase tracking-[0.14em] text-[#4a3500] hover:text-[#7a5c00] transition-colors duration-200 cursor-pointer pb-3 pt-3"><Mail className="w-3.5 h-3.5" /> Invitation</button>
         </div>
 
         <a
@@ -114,6 +137,7 @@ function Navigation() {
                   {link.label}
                 </button>
               ))}
+              <button type="button" onClick={() => { setInvitationOpen(true); setMobileOpen(false); }} className="text-left font-heading font-semibold text-base uppercase tracking-[0.12em] border-l-4 border-transparent pl-4 py-2 text-[#4a3500] hover:border-amber-300 hover:text-[#7a5c00] transition-all cursor-pointer flex items-center gap-2"><Mail className="w-4 h-4" /> Invitation</button>
               <a
                 href="#guestbook"
                 onClick={() => setMobileOpen(false)}
@@ -125,6 +149,7 @@ function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
+      {invitationOpen && <InvitationDialog onClose={() => setInvitationOpen(false)} />}
     </nav>
   );
 }

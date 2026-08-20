@@ -59,10 +59,3 @@ VALUES
   ('seed-fr1', 'Chief Mrs. [Family Friend]', 'Friend',
    'I have known this couple since we were young. Seeing them today, wrapped in gold and grace, fills my heart with indescribable joy. Their union has always been a quiet miracle — two people made for each other. Fifty years of this is proof that God is very real and very good. Eze na-adili unu oo!',
    '2026-11-28', 'FF', 3, 0);
-
--- ── Seed RSVP entries ─────────────────────────────────────────────────────────
-INSERT OR IGNORE INTO rsvp (id, name, attending, guests, timestamp) VALUES
-  ('seed-r1', 'The Obi Family',       1, 4, '2026-10-01'),
-  ('seed-r2', 'Dr. Nneka Chukwu',     1, 2, '2026-10-03'),
-  ('seed-r3', 'Engineer Emeka Nwosu', 1, 3, '2026-10-05'),
-  ('seed-r4', 'The Eze Family',       0, 0, '2026-10-07');

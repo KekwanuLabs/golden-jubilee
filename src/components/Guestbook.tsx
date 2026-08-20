@@ -11,6 +11,12 @@ interface RSVPEntry {
   timestamp: string;
 }
 
+function formatGuestbookDate(value: string) {
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
+}
+
 const AVATAR_GRADIENTS = [
   'linear-gradient(135deg, #7a5c00, #d4af37)',
   'linear-gradient(135deg, #2d1f00, #8b6914)',
@@ -43,7 +49,11 @@ export default function Guestbook() {
     }
   };
 
-  useEffect(() => { fetchEntries(); }, []);
+  useEffect(() => {
+    fetchEntries();
+    const interval = window.setInterval(fetchEntries, 30_000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -290,7 +300,13 @@ export default function Guestbook() {
               </div>
             ) : (
               <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
-                {visibleEntries.map((entry, i) => {
+                {entries.length === 0 ? (
+                  <div className="gold-card rounded-2xl min-h-[280px] flex flex-col items-center justify-center text-center px-8 py-10 border-dashed">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-5" style={{ background: 'linear-gradient(135deg, #2d1f00, #d4af37)' }}><BookOpen className="w-7 h-7 text-amber-200" /></div>
+                    <h3 className="font-heading text-xl md:text-2xl font-bold text-[#2d1f00] mb-2">The register awaits its first page</h3>
+                    <p className="font-serif text-lg italic text-amber-800/75 max-w-sm">Be the first to leave a warm wish and let the family know if you will join the celebration.</p>
+                  </div>
+                ) : visibleEntries.map((entry, i) => {
                   const initials = entry.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
                   return (
                     <motion.div
@@ -320,7 +336,7 @@ export default function Guestbook() {
                           </span>
                             {entry.message && <ChevronDown className={`w-4 h-4 text-amber-600 ml-auto transition-transform duration-300 ${expandedId === entry.id ? 'rotate-180' : ''}`} />}
                           </div>
-                          <p className="font-sans text-xs uppercase tracking-widest text-amber-600/40 mt-1">{entry.timestamp}</p>
+                          <p className="font-sans text-xs tracking-wide text-amber-600/55 mt-1">{formatGuestbookDate(entry.timestamp)}</p>
                         </button>
                         {entry.message && <AnimatePresence initial={false}><motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: expandedId === entry.id ? 'auto' : 0, opacity: expandedId === entry.id ? 1 : 0 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden"><p className="font-serif text-base md:text-lg italic text-[#3d2e00]/80 mt-3 pt-3 border-t border-amber-200/40 leading-relaxed">“{entry.message}”</p></motion.div></AnimatePresence>}
                       </div>
