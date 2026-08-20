@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Menu, Share2, X } from 'lucide-react';
+import { Copy, Mail, Menu, MessageCircle, Share2, Smartphone, X } from 'lucide-react';
 import Hero from './components/Hero';
 import EventSection from './components/EventSection';
 import Gallery from './components/Gallery';
@@ -15,23 +15,30 @@ const NAV_LINKS = [
 ];
 
 function InvitationDialog({ onClose }: { onClose: () => void }) {
-  const [shared, setShared] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKeyDown);
-    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKeyDown); };
+    return () => { window.removeEventListener('keydown', onKeyDown); };
   }, [onClose]);
 
+  const invitationUrl = new URL('/images/gallery/invitation.jpg', window.location.origin).toString();
+  const shareText = 'Join us for the Golden Jubilee celebration of Chief Engr. and Lolo C. U. Onwuneme on Tuesday, 29th December 2026.';
   const shareInvitation = async () => {
-    const invitationUrl = new URL('/images/gallery/invitation.jpg', window.location.origin).toString();
     if (navigator.share) {
-      await navigator.share({ title: 'Golden Jubilee Invitation', text: 'Join us for the Golden Jubilee celebration.', url: invitationUrl });
+      try { await navigator.share({ title: 'Golden Jubilee Invitation', text: shareText, url: invitationUrl }); } catch { /* cancelled by user */ }
     } else if (navigator.clipboard) {
       await navigator.clipboard.writeText(invitationUrl);
-      setShared(true);
-      window.setTimeout(() => setShared(false), 2500);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2500);
     }
+  };
+  const copyInvitation = async () => {
+    if (!navigator.clipboard) return;
+    await navigator.clipboard.writeText(invitationUrl);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2500);
   };
 
   return (
@@ -40,9 +47,16 @@ function InvitationDialog({ onClose }: { onClose: () => void }) {
         <div className="relative rounded-xl overflow-hidden bg-[#fdf6e3] p-2 md:p-4">
           <img src="/images/gallery/invitation.jpg" alt="Golden Jubilee invitation" className="relative mx-auto max-h-[84vh] w-auto max-w-full object-contain rounded-lg shadow-lg" />
           <div className="absolute top-4 right-4 flex gap-2">
-            <button type="button" aria-label="Share invitation" onClick={shareInvitation} className="w-10 h-10 rounded-full bg-[#2d1f00]/85 text-amber-100 border border-amber-300/40 flex items-center justify-center hover:bg-[#2d1f00] transition-colors" title={shared ? 'Link copied' : 'Share invitation'}><Share2 className="w-4 h-4" /></button>
+            <button type="button" aria-label="Share invitation" onClick={() => setShareOpen(open => !open)} className="w-10 h-10 rounded-full bg-[#2d1f00]/85 text-amber-100 border border-amber-300/40 flex items-center justify-center hover:bg-[#2d1f00] transition-colors" title="Share invitation"><Share2 className="w-4 h-4" /></button>
             <button type="button" aria-label="Close invitation" onClick={onClose} className="w-10 h-10 rounded-full bg-[#2d1f00]/85 text-amber-100 border border-amber-300/40 flex items-center justify-center hover:bg-[#2d1f00] transition-colors"><X className="w-5 h-5" /></button>
           </div>
+          {shareOpen && <div className="absolute top-16 right-4 w-56 rounded-xl bg-[#2d1f00]/95 border border-amber-300/40 p-2 shadow-2xl" onClick={event => event.stopPropagation()}>
+            <p className="font-heading text-[11px] uppercase tracking-widest text-amber-200/70 px-3 py-2">Share invitation</p>
+            <a href={`https://wa.me/?text=${encodeURIComponent(`${shareText} ${invitationUrl}`)}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white hover:bg-white/10"><MessageCircle className="w-4 h-4 text-emerald-300" /> WhatsApp</a>
+            <a href={`sms:?&body=${encodeURIComponent(`${shareText} ${invitationUrl}`)}`} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white hover:bg-white/10"><Smartphone className="w-4 h-4 text-sky-300" /> Text message</a>
+            <button type="button" onClick={shareInvitation} className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white hover:bg-white/10"><Share2 className="w-4 h-4 text-amber-300" /> More sharing options</button>
+            <button type="button" onClick={copyInvitation} className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white hover:bg-white/10"><Copy className="w-4 h-4 text-amber-300" /> {copied ? 'Link copied' : 'Copy link'}</button>
+          </div>}
           <span id="invitation-title" className="sr-only">Golden Jubilee invitation</span>
         </div>
       </div>
@@ -261,7 +275,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-x-hidden">
       <Navigation onOpenInvitation={() => setInvitationOpen(true)} />
       {invitationOpen && <InvitationDialog onClose={() => setInvitationOpen(false)} />}
       <Hero onScrollToEvent={scrollToEvent} />
