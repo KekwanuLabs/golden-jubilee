@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Church, Tent, Clock, MapPin, Calendar, Users } from 'lucide-react';
+import { Church, Tent, Clock, MapPin, Calendar, Users, Phone } from 'lucide-react';
 
 function VenueCard({
   icon: Icon,
@@ -145,13 +145,13 @@ export default function EventSection() {
           <VenueCard
             icon={Tent}
             iconBg="radial-gradient(circle, #1a1200 0%, #2d1f00 100%)"
-            time="1:00 PM"
+            time="12:00 PM"
             title="Reception"
             subtitle="Grand Celebration Banquet"
             address={[
-              "Onwuneme's Compound,",
+              "Chief Engr. Cosmas Onwuneme’s Compound,",
               'Umuago-Urualla,',
-              'Imo State.',
+              'Ideato North LGA, Imo State.',
             ]}
             details="Join us for an afternoon of music, feasting, tributes, and dancing as we celebrate this golden milestone in the Onwuneme family home."
             mapQuery="Onwuneme Compound, Umuago Urualla, Ideato North, Imo State"
@@ -159,49 +159,23 @@ export default function EventSection() {
           />
         </div>
 
-        {/* Programme timeline */}
+        {/* RSVP contact */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="bg-[#2d1f00] rounded-2xl p-8 md:p-10 text-amber-100"
+          className="bg-[#2d1f00] rounded-2xl p-8 md:p-10 text-amber-100 text-center"
         >
-          <h3 className="font-heading font-bold text-xl text-amber-300 mb-8 text-center tracking-wide">
-            Programme of Events
+          <Phone className="w-8 h-8 text-amber-400 mx-auto mb-4" />
+          <h3 className="font-heading font-bold text-xl text-amber-300 mb-3 tracking-wide">
+            RSVP
           </h3>
-
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-[7px] top-2 bottom-2 w-px bg-amber-700/40 hidden md:block" />
-
-            <div className="space-y-6">
-              {[
-                { time: '8:00 AM',  event: 'Thanksgiving Mass', detail: 'Queen of Apostles Catholic Church' },
-                { time: '10:30 AM', event: 'Procession & Arrival', detail: 'The couple arrive at the family compound' },
-                { time: '1:00 PM',  event: 'Reception Opens', detail: "Onwuneme's Compound, Umuago Urualla" },
-                { time: '1:30 PM',  event: 'Lunch & Cultural Performances', detail: 'Traditional Igbo music and dance' },
-                { time: '3:00 PM',  event: 'Tributes & Speeches', detail: 'Words of honour from family and friends' },
-                { time: '4:00 PM',  event: 'Cake Cutting & Toast', detail: '50 years of golden moments celebrated' },
-                { time: '5:00 PM',  event: 'Open Dancing', detail: 'Highlife and celebration music' },
-              ].map((item, i) => (
-                <div key={i} className="flex gap-4 md:gap-6 items-start">
-                  <div className="flex flex-col items-center md:items-start">
-                    <div className="w-3.5 h-3.5 rounded-full bg-amber-400 border-2 border-amber-700 flex-shrink-0 mt-0.5 relative z-10" />
-                  </div>
-                  <div className="flex-1 flex flex-col md:flex-row md:items-center gap-1 md:gap-4 pb-4 border-b border-amber-800/30 last:border-0 last:pb-0">
-                    <span className="font-heading text-amber-400 text-sm font-bold tracking-widest w-20 flex-shrink-0">
-                      {item.time}
-                    </span>
-                    <div>
-                      <p className="font-heading font-bold text-amber-100 text-base">{item.event}</p>
-                      <p className="font-sans text-amber-300/60 text-sm font-light">{item.detail}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <p className="font-serif text-amber-100 text-xl mb-1">Chinedu Onwuneme</p>
+          <a href="tel:+2348037938905" className="font-heading text-amber-300 text-lg tracking-wide hover:text-white transition-colors">
+            +234 803 793 8905
+          </a>
+          <p className="font-serif italic text-amber-300/70 mt-4">Kindly let the family know if you will be joining the celebration.</p>
         </motion.div>
 
         {/* RSVP note */}

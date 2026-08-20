@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Check, Users, Send, CalendarCheck, Loader2 } from 'lucide-react';
+import { BookOpen, Check, Users, Send, CalendarCheck, Loader2, ChevronDown } from 'lucide-react';
 
 interface RSVPEntry {
   id: string;
   name: string;
   attending: boolean;
   guests: number;
+  message: string;
   timestamp: string;
 }
 
@@ -16,6 +17,7 @@ const AVATAR_GRADIENTS = [
   'linear-gradient(135deg, #5c4500, #c9a227)',
   'linear-gradient(135deg, #1a1200, #d4af37)',
 ];
+const PAGE_SIZE = 6;
 
 export default function Guestbook() {
   const [entries, setEntries] = useState<RSVPEntry[]>([]);
@@ -23,9 +25,12 @@ export default function Guestbook() {
   const [name, setName] = useState('');
   const [attending, setAttending] = useState<boolean | null>(null);
   const [guests, setGuests] = useState(1);
+  const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(1);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const fetchEntries = async () => {
     try {
@@ -51,7 +56,7 @@ export default function Guestbook() {
       const res = await fetch('/api/rsvp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), attending, guests: attending ? guests : 0 }),
+        body: JSON.stringify({ name: name.trim(), attending, guests: attending ? guests : 0, message: message.trim() }),
       });
       if (!res.ok) {
         const data = await res.json() as { error?: string };
@@ -59,9 +64,11 @@ export default function Guestbook() {
         return;
       }
       await fetchEntries();
+      setPage(1);
       setName('');
       setAttending(null);
       setGuests(1);
+      setMessage('');
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 6000);
     } catch {
@@ -73,6 +80,8 @@ export default function Guestbook() {
 
   const attending_count = entries.filter(e => e.attending).length;
   const total_guests    = entries.filter(e => e.attending).reduce((sum, e) => sum + e.guests, 0);
+  const pageCount = Math.max(1, Math.ceil(entries.length / PAGE_SIZE));
+  const visibleEntries = entries.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <section id="guestbook" className="cream-bg py-24 px-4">
@@ -93,7 +102,7 @@ export default function Guestbook() {
             <span className="text-amber-600 text-base tracking-widest">✦ ❖ ✦</span>
           </div>
           <p className="font-serif text-[#3d2800] text-lg italic max-w-xl mx-auto mt-4 font-light">
-            Let us know you are coming so we can plan the celebration. To leave a personal message, visit the Tributes wall above.
+            Sign the public guestbook with a note for the couple. You can also let us know whether you will join the celebration.
           </p>
         </motion.div>
 
@@ -177,6 +186,19 @@ export default function Guestbook() {
                     </div>
 
                     <div>
+                      <label className="block font-sans text-[13px] uppercase tracking-widest text-amber-700 font-semibold mb-1.5">
+                        A note for the couple <span className="font-normal normal-case tracking-normal text-amber-700/60">(optional)</span>
+                      </label>
+                      <textarea
+                        placeholder="Write a blessing, memory or warm wish…"
+                        value={message}
+                        onChange={e => setMessage(e.target.value)}
+                        rows={4}
+                        className="w-full font-serif text-base p-3 border border-amber-200/60 rounded bg-white/70 text-[#2d1f00] placeholder-amber-400/60 resize-y"
+                      />
+                    </div>
+
+                    <div>
                       <label className="block font-sans text-[13px] uppercase tracking-widest text-amber-700 font-semibold mb-2">
                         Will you attend?
                       </label>
@@ -245,12 +267,7 @@ export default function Guestbook() {
                       {submitting ? 'Submitting…' : 'Sign the Golden Register'}
                     </button>
 
-                    <p className="font-serif italic text-amber-700/60 text-sm text-center">
-                      Want to leave a personal message?{' '}
-                      <a href="#tributes" className="underline hover:text-amber-700 transition-colors">
-                        Write a tribute ↑
-                      </a>
-                    </p>
+                    <p className="font-serif italic text-amber-700/60 text-sm text-center">Your note and RSVP will be saved in the golden register.</p>
                   </motion.form>
                 )}
               </AnimatePresence>
@@ -273,15 +290,16 @@ export default function Guestbook() {
               </div>
             ) : (
               <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
-                {entries.map((entry, i) => {
+                {visibleEntries.map((entry, i) => {
                   const initials = entry.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
                   return (
                     <motion.div
                       key={entry.id}
+                      layout
                       initial={{ opacity: 0, x: 12 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="gold-card rounded-xl p-4 flex items-start gap-4"
+                      className={`gold-card rounded-xl p-4 flex items-start gap-4 ${expandedId === entry.id ? '' : 'min-h-[92px]'}`}
                     >
                       <div
                         className="w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold text-sm text-white flex-shrink-0"
@@ -290,8 +308,9 @@ export default function Guestbook() {
                         {initials}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className="font-heading font-bold text-base text-[#2d1f00]">{entry.name}</p>
+                        <button type="button" onClick={() => entry.message && setExpandedId(current => current === entry.id ? null : entry.id)} aria-expanded={expandedId === entry.id} className={`w-full text-left ${entry.message ? 'cursor-pointer' : 'cursor-default'}`}>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <p className="font-heading font-bold text-base md:text-lg text-[#2d1f00]">{entry.name}</p>
                           <span className={`font-sans text-[13px] uppercase tracking-widest px-2 py-0.5 rounded font-bold ${
                             entry.attending
                               ? 'bg-amber-100 text-amber-700'
@@ -299,12 +318,23 @@ export default function Guestbook() {
                           }`}>
                             {entry.attending ? `Attending · ${entry.guests} guest${entry.guests > 1 ? 's' : ''}` : 'Unable to attend'}
                           </span>
-                        </div>
-                        <p className="font-sans text-xs uppercase tracking-widest text-amber-600/40 mt-1">{entry.timestamp}</p>
+                            {entry.message && <ChevronDown className={`w-4 h-4 text-amber-600 ml-auto transition-transform duration-300 ${expandedId === entry.id ? 'rotate-180' : ''}`} />}
+                          </div>
+                          <p className="font-sans text-xs uppercase tracking-widest text-amber-600/40 mt-1">{entry.timestamp}</p>
+                        </button>
+                        {entry.message && <AnimatePresence initial={false}><motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: expandedId === entry.id ? 'auto' : 0, opacity: expandedId === entry.id ? 1 : 0 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden"><p className="font-serif text-base md:text-lg italic text-[#3d2e00]/80 mt-3 pt-3 border-t border-amber-200/40 leading-relaxed">“{entry.message}”</p></motion.div></AnimatePresence>}
                       </div>
                     </motion.div>
                   );
                 })}
+              </div>
+            )}
+
+            {!loading && entries.length > 0 && (
+              <div className="flex items-center justify-between gap-4 pt-2">
+                <button onClick={() => setPage(current => Math.max(1, current - 1))} disabled={page === 1} className="btn-outline-gold rounded px-4 py-2.5 text-sm disabled:opacity-35 disabled:cursor-not-allowed">← Newer</button>
+                <span className="font-sans text-sm uppercase tracking-widest text-amber-700">Page {page} of {pageCount}</span>
+                <button onClick={() => setPage(current => Math.min(pageCount, current + 1))} disabled={page === pageCount} className="btn-outline-gold rounded px-4 py-2.5 text-sm disabled:opacity-35 disabled:cursor-not-allowed">Older →</button>
               </div>
             )}
           </div>

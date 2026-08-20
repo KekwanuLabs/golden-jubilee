@@ -17,34 +17,38 @@ CREATE TABLE IF NOT EXISTS rsvp (
   name       TEXT     NOT NULL,
   attending  INTEGER  NOT NULL DEFAULT 1,
   guests     INTEGER  NOT NULL DEFAULT 1,
-  timestamp  TEXT     NOT NULL
+  timestamp  TEXT     NOT NULL,
+  message    TEXT     NOT NULL DEFAULT ''
 );
+
+CREATE INDEX IF NOT EXISTS idx_tributes_featured_created ON tributes (is_featured, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_rsvp_timestamp ON rsvp (timestamp DESC);
 
 -- ── Seed tributes (the six children + grandchildren + family friend) ──────────
 INSERT OR IGNORE INTO tributes
   (id, author, relation, message, created_at, avatar_initials, avatar_gradient_idx, is_featured)
 VALUES
-  ('seed-f1', '[Child 1 — add your name]', 'First Child',
+  ('seed-f1', 'Chinedu', 'Chinedu',
    'Growing up, our home was always filled with the sound of your laughter and the smell of Mama''s cooking. Papa, you showed us what it means to work hard and walk with integrity. Mama, you showed us what it means to love unconditionally. Together, you are the reason we know what a family should feel like. Fifty years of this? We are the most blessed children on earth. Daalu unu! Ya gazie!',
    '2026-12-01', 'C1', 0, 1),
 
-  ('seed-f2', '[Child 2 — add your name]', 'Second Child',
+  ('seed-f2', 'Chukwuma', 'Chukwuma',
    'I have watched you both navigate life''s storms with grace and faith. Not once did we see you falter in your love for each other or for us. Papa, your quiet strength is a mountain. Mama, your gentle wisdom is an ocean. Together, you are the bedrock of this family. Thank you for giving us 50 years of the most beautiful blueprint for love. We honour you today and always.',
    '2026-12-01', 'C2', 1, 1),
 
-  ('seed-f3', '[Child 3 — add your name]', 'Third Child',
+  ('seed-f3', 'Ijeoma', 'Ijeoma',
    'Dear Papa and Mama, I kept deleting drafts because no words feel adequate. So I will simply say this: every good thing in my life traces back to the foundation you laid. Your love is not just a story we tell — it is the air we breathe. Here is to 50 years and to many more golden seasons ahead. Chineke gozie unu!',
    '2026-12-01', 'C3', 2, 1),
 
-  ('seed-f4', '[Child 4 — add your name]', 'Fourth Child',
+  ('seed-f4', 'Kelechukwu', 'Kelechukwu',
    'Fifty years is a testimony. I have watched Mama and Papa teach us that marriage is not a feeling — it is a decision made fresh every morning. A decision to show up, to forgive, to laugh, to hold on. Thank you for making that decision for fifty years running. We, your children, are the living proof of your legacy.',
    '2026-12-01', 'C4', 3, 1),
 
-  ('seed-f5', '[Child 5 — add your name]', 'Fifth Child',
+  ('seed-f5', 'Okechukwu', 'Okechukwu',
    'The thing I am most grateful for is that you gave us an example. In a world where love is treated as temporary, you showed us it can be permanent — that it deepens and shines brighter with time. Happy Golden Jubilee, my dearest Papa and Mama. You are our greatest treasure.',
    '2026-12-01', 'C5', 4, 1),
 
-  ('seed-f6', '[Child 6 — add your name]', 'Sixth Child',
+  ('seed-f6', 'Chukwunonso', 'Chukwunonso',
    'Being the last child, I grew up watching you both through grown-up eyes from the very beginning. I saw a partnership built on faith, sacrifice, and an unshakeable bond. You never needed to teach me about love — I simply watched the two of you. Fifty years down, and you still make each other laugh. That is everything. Daalu. I love you both beyond words.',
    '2026-12-01', 'C6', 0, 1),
 

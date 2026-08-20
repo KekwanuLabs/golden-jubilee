@@ -7,7 +7,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+// Keep the celebration site off the common default port, which may already be in use.
+const PORT = Number(process.env.PORT ?? 3001);
 
 app.use(express.json());
 
@@ -21,22 +22,28 @@ const AVATAR_GRADIENTS = [
 ];
 
 const seedTributes = [
-  { id: 'seed-f1', author: '[Child 1 — add your name]', relation: 'First Child', message: "Growing up, our home was always filled with the sound of your laughter and the smell of Mama's cooking. Papa, you showed us what it means to work hard and walk with integrity. Mama, you showed us what it means to love unconditionally. Together, you are the reason we know what a family should feel like. Fifty years of this? We are the most blessed children on earth. Daalu unu! Ya gazie!", createdAt: '2026-12-01', avatarInitials: 'C1', avatarGradient: AVATAR_GRADIENTS[0], isFeatured: true },
-  { id: 'seed-f2', author: '[Child 2 — add your name]', relation: 'Second Child', message: "I have watched you both navigate life's storms with grace and faith. Not once did we see you falter in your love for each other or for us. Papa, your quiet strength is a mountain. Mama, your gentle wisdom is an ocean. Together, you are the bedrock of this family. Thank you for giving us 50 years of the most beautiful blueprint for love. We honour you today and always.", createdAt: '2026-12-01', avatarInitials: 'C2', avatarGradient: AVATAR_GRADIENTS[1], isFeatured: true },
-  { id: 'seed-f3', author: '[Child 3 — add your name]', relation: 'Third Child', message: "Dear Papa and Mama, I kept deleting drafts because no words feel adequate. So I will simply say this: every good thing in my life traces back to the foundation you laid. Your love is not just a story we tell — it is the air we breathe. Here is to 50 years and to many more golden seasons ahead. Chineke gozie unu!", createdAt: '2026-12-01', avatarInitials: 'C3', avatarGradient: AVATAR_GRADIENTS[2], isFeatured: true },
-  { id: 'seed-f4', author: '[Child 4 — add your name]', relation: 'Fourth Child', message: "Fifty years is a testimony. I have watched Mama and Papa teach us that marriage is not a feeling — it is a decision made fresh every morning. A decision to show up, to forgive, to laugh, to hold on. Thank you for making that decision for fifty years running. We, your children, are the living proof of your legacy.", createdAt: '2026-12-01', avatarInitials: 'C4', avatarGradient: AVATAR_GRADIENTS[3], isFeatured: true },
-  { id: 'seed-f5', author: '[Child 5 — add your name]', relation: 'Fifth Child', message: "The thing I am most grateful for is that you gave us an example. In a world where love is treated as temporary, you showed us it can be permanent — that it deepens and shines brighter with time. Happy Golden Jubilee, my dearest Papa and Mama. You are our greatest treasure.", createdAt: '2026-12-01', avatarInitials: 'C5', avatarGradient: AVATAR_GRADIENTS[4], isFeatured: true },
-  { id: 'seed-f6', author: '[Child 6 — add your name]', relation: 'Sixth Child', message: "Being the last child, I grew up watching you both through grown-up eyes from the very beginning. I saw a partnership built on faith, sacrifice, and an unshakeable bond. You never needed to teach me about love — I simply watched the two of you. Fifty years down, and you still make each other laugh. That is everything. Daalu. I love you both beyond words.", createdAt: '2026-12-01', avatarInitials: 'C6', avatarGradient: AVATAR_GRADIENTS[0], isFeatured: true },
+  { id: 'seed-f1', author: '[Child 1 — add your name]', relation: 'Child 1', message: "Growing up, our home was always filled with the sound of your laughter and the smell of Mama's cooking. Papa, you showed us what it means to work hard and walk with integrity. Mama, you showed us what it means to love unconditionally. Together, you are the reason we know what a family should feel like. Fifty years of this? We are the most blessed children on earth. Daalu unu! Ya gazie!", createdAt: '2026-12-01', avatarInitials: 'C1', avatarGradient: AVATAR_GRADIENTS[0], isFeatured: true },
+  { id: 'seed-f2', author: '[Child 2 — add your name]', relation: 'Child 2', message: "I have watched you both navigate life's storms with grace and faith. Not once did we see you falter in your love for each other or for us. Papa, your quiet strength is a mountain. Mama, your gentle wisdom is an ocean. Together, you are the bedrock of this family. Thank you for giving us 50 years of the most beautiful blueprint for love. We honour you today and always.", createdAt: '2026-12-01', avatarInitials: 'C2', avatarGradient: AVATAR_GRADIENTS[1], isFeatured: true },
+  { id: 'seed-f3', author: '[Child 3 — add your name]', relation: 'Child 3', message: "Dear Papa and Mama, I kept deleting drafts because no words feel adequate. So I will simply say this: every good thing in my life traces back to the foundation you laid. Your love is not just a story we tell — it is the air we breathe. Here is to 50 years and to many more golden seasons ahead. Chineke gozie unu!", createdAt: '2026-12-01', avatarInitials: 'C3', avatarGradient: AVATAR_GRADIENTS[2], isFeatured: true },
+  { id: 'seed-f4', author: '[Child 4 — add your name]', relation: 'Child 4', message: "Fifty years is a testimony. I have watched Mama and Papa teach us that marriage is not a feeling — it is a decision made fresh every morning. A decision to show up, to forgive, to laugh, to hold on. Thank you for making that decision for fifty years running. We, your children, are the living proof of your legacy.", createdAt: '2026-12-01', avatarInitials: 'C4', avatarGradient: AVATAR_GRADIENTS[3], isFeatured: true },
+  { id: 'seed-f5', author: '[Child 5 — add your name]', relation: 'Child 5', message: "The thing I am most grateful for is that you gave us an example. In a world where love is treated as temporary, you showed us it can be permanent — that it deepens and shines brighter with time. Happy Golden Jubilee, my dearest Papa and Mama. You are our greatest treasure.", createdAt: '2026-12-01', avatarInitials: 'C5', avatarGradient: AVATAR_GRADIENTS[4], isFeatured: true },
+  { id: 'seed-f6', author: '[Child 6 — add your name]', relation: 'Child 6', message: "Being the last child, I grew up watching you both through grown-up eyes from the very beginning. I saw a partnership built on faith, sacrifice, and an unshakeable bond. You never needed to teach me about love — I simply watched the two of you. Fifty years down, and you still make each other laugh. That is everything. Daalu. I love you both beyond words.", createdAt: '2026-12-01', avatarInitials: 'C6', avatarGradient: AVATAR_GRADIENTS[0], isFeatured: true },
   { id: 'seed-g1', author: 'The Grandchildren', relation: 'Grandchild', message: "Dearest Grandpa and Grandma, thank you for the chin-chin you always kept in your bags, for the Igbo proverbs at bedtime, and for showing us that real love is quiet, strong, and lasting. You are our favourite people in the world. Happy Anniversary!", createdAt: '2026-12-01', avatarInitials: 'GC', avatarGradient: AVATAR_GRADIENTS[2], isFeatured: false },
   { id: 'seed-fr1', author: 'Chief Mrs. [Family Friend]', relation: 'Friend', message: "I have known this couple since we were young. Seeing them today, wrapped in gold and grace, fills my heart with indescribable joy. Their union has always been a quiet miracle. Fifty years of this is proof that God is very real and very good. Eze na-adili unu oo!", createdAt: '2026-11-28', avatarInitials: 'FF', avatarGradient: AVATAR_GRADIENTS[3], isFeatured: false },
 ];
 
 const seedRsvp = [
-  { id: 'seed-r1', name: 'The Obi Family',       attending: true,  guests: 4, timestamp: '2026-10-01' },
-  { id: 'seed-r2', name: 'Dr. Nneka Chukwu',     attending: true,  guests: 2, timestamp: '2026-10-03' },
-  { id: 'seed-r3', name: 'Engineer Emeka Nwosu', attending: true,  guests: 3, timestamp: '2026-10-05' },
-  { id: 'seed-r4', name: 'The Eze Family',        attending: false, guests: 0, timestamp: '2026-10-07' },
+  { id: 'seed-r1', name: 'The Obi Family',       attending: true,  guests: 4, message: 'We cannot wait to celebrate with you.', timestamp: '2026-10-01' },
+  { id: 'seed-r2', name: 'Dr. Nneka Chukwu',     attending: true,  guests: 2, message: 'Congratulations on this beautiful milestone.', timestamp: '2026-10-03' },
+  { id: 'seed-r3', name: 'Engineer Emeka Nwosu', attending: true,  guests: 3, message: '', timestamp: '2026-10-05' },
+  { id: 'seed-r4', name: 'The Eze Family',        attending: false, guests: 0, message: '', timestamp: '2026-10-07' },
 ];
+
+const CHILD_NAMES = ['Chinedu', 'Chukwuma', 'Ijeoma', 'Kelechukwu', 'Okechukwu', 'Chukwunonso'];
+seedTributes.slice(0, 6).forEach((tribute, index) => {
+  tribute.author = CHILD_NAMES[index];
+  tribute.relation = CHILD_NAMES[index];
+});
 
 let tributes = [...seedTributes];
 let rsvpEntries = [...seedRsvp];
@@ -48,13 +55,16 @@ app.get('/api/tributes', (_req, res) => {
     if (!a.isFeatured && b.isFeatured) return 1;
     return b.createdAt.localeCompare(a.createdAt);
   });
-  res.json(sorted);
+  res.json(sorted.filter(t => ['Chinedu', 'Chukwuma', 'Ijeoma', 'Kelechukwu', 'Okechukwu', 'Chukwunonso'].includes(t.relation)));
 });
 
 app.post('/api/tributes', (req, res) => {
   const { author, relation, message, avatarInitials, avatarGradientIdx = 0 } = req.body;
   if (!author?.trim() || !message?.trim()) {
     return res.status(400).json({ error: 'author and message are required' });
+  }
+  if (!['Chinedu', 'Chukwuma', 'Ijeoma', 'Kelechukwu', 'Okechukwu', 'Chukwunonso'].includes(relation ?? '')) {
+    return res.status(400).json({ error: 'Tributes are reserved for the six children.' });
   }
   const tribute = {
     id: Date.now().toString(),
@@ -76,7 +86,7 @@ app.get('/api/rsvp', (_req, res) => {
 });
 
 app.post('/api/rsvp', (req, res) => {
-  const { name, attending, guests = 1 } = req.body;
+  const { name, attending, guests = 1, message = '' } = req.body;
   if (!name?.trim()) {
     return res.status(400).json({ error: 'name is required' });
   }
@@ -86,6 +96,7 @@ app.post('/api/rsvp', (req, res) => {
     attending: !!attending,
     guests: attending ? guests : 0,
     timestamp: new Date().toISOString().split('T')[0],
+    message: message.trim(),
   };
   rsvpEntries.unshift(entry);
   res.status(201).json({ success: true, entry });

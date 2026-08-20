@@ -34,7 +34,7 @@ function mapRow(row: TributeRow) {
 
 export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
   const { results } = await env.DB.prepare(
-    'SELECT * FROM tributes ORDER BY is_featured DESC, created_at DESC'
+    "SELECT * FROM tributes WHERE relation IN ('Chinedu', 'Chukwuma', 'Ijeoma', 'Kelechukwu', 'Okechukwu', 'Chukwunonso') ORDER BY is_featured DESC, created_at DESC"
   ).all<TributeRow>();
 
   return Response.json(results.map(mapRow));
@@ -52,6 +52,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   if (!author?.trim() || !message?.trim()) {
     return Response.json({ error: 'author and message are required' }, { status: 400 });
+  }
+
+  if (!relation || !['Chinedu', 'Chukwuma', 'Ijeoma', 'Kelechukwu', 'Okechukwu', 'Chukwunonso'].includes(relation.trim())) {
+    return Response.json({ error: 'Tributes are reserved for the six children.' }, { status: 400 });
   }
 
   const id = crypto.randomUUID();

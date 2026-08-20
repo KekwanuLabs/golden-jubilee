@@ -2,20 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import Hero from './components/Hero';
-import OurStory from './components/OurStory';
-import Timeline from './components/Timeline';
 import EventSection from './components/EventSection';
 import Gallery from './components/Gallery';
 import Tributes from './components/Tributes';
 import Guestbook from './components/Guestbook';
 
 const NAV_LINKS = [
-  { href: '#story',     label: 'Our Story'  },
-  { href: '#timeline',  label: 'Timeline'   },
   { href: '#event',     label: 'The Event'  },
   { href: '#gallery',   label: 'Gallery'    },
-  { href: '#tributes',  label: 'Tributes'   },
-  { href: '#guestbook', label: 'RSVP'       },
+  { href: '#tributes',  label: 'Six Voices' },
+  { href: '#guestbook', label: 'Guestbook'   },
 ];
 
 function Navigation() {
@@ -75,13 +71,10 @@ function Navigation() {
             <button
               key={link.href}
               onClick={() => scrollTo(link.href)}
-              className={`font-heading font-semibold text-sm uppercase tracking-[0.14em] transition-all duration-200 cursor-pointer pb-0.5 ${
-                active === link.href
-                  ? 'text-[#7a5c00] border-b-2 border-[#d4af37]'
-                  : 'text-[#4a3500] hover:text-[#7a5c00]'
-              }`}
+              className={`relative font-heading font-semibold text-sm uppercase tracking-[0.14em] transition-colors duration-200 cursor-pointer pb-3 pt-3 ${active === link.href ? 'text-[#7a5c00]' : 'text-[#4a3500] hover:text-[#7a5c00]'}`}
             >
               {link.label}
+              {active === link.href && <motion.span layoutId="active-nav-indicator" className="absolute left-0 right-0 -bottom-[1px] h-[3px] rounded-full" style={{ background: 'linear-gradient(to right, #b8860b, #ffe082, #b8860b)', boxShadow: '0 0 10px rgba(212,175,55,0.55)' }} transition={{ type: 'spring', stiffness: 420, damping: 32 }} />}
             </button>
           ))}
         </div>
@@ -90,7 +83,7 @@ function Navigation() {
           href="#guestbook"
           className="hidden md:flex items-center gap-2 btn-gold px-5 py-2.5 rounded text-sm cursor-pointer"
         >
-          RSVP
+          Guestbook
         </a>
 
         <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden text-[#7a5c00] p-1 cursor-pointer">
@@ -126,7 +119,7 @@ function Navigation() {
                 onClick={() => setMobileOpen(false)}
                 className="btn-gold flex items-center justify-center gap-2 py-3.5 rounded text-sm cursor-pointer mt-2"
               >
-                RSVP
+                Guestbook
               </a>
             </div>
           </motion.div>
@@ -164,7 +157,7 @@ function Footer() {
           </h3>
 
           <p className="font-heading text-[#3d2800] text-base md:text-lg uppercase tracking-[0.25em] font-bold mb-3">
-            Chief Engr &amp; Lolo Cosmas U. Onwuneme
+            Chief Engr. &amp; Lolo C. U. Onwuneme
           </p>
 
           <p className="font-serif italic text-[#7a5c00] text-base md:text-lg">
@@ -190,8 +183,8 @@ function Footer() {
           </p>
           <div className="my-3 h-px bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent" />
           <p className="font-serif text-[#5c4500] text-base md:text-lg leading-relaxed">
-            Reception · 1:00 PM<br />
-            <span className="text-sm text-[#7a5c00]">Onwuneme's Compound, Umuago-Urualla, Imo State</span>
+            Reception · 12:00 PM<br />
+            <span className="text-sm text-[#7a5c00]">Chief Engr. Cosmas Onwuneme’s Compound, Umuago-Urualla, Ideato North LGA, Imo State</span>
           </p>
         </div>
 
@@ -211,7 +204,7 @@ function Footer() {
         {/* Bottom */}
         <div className="text-center border-t border-[#d4af37]/25 pt-8">
           <p className="font-serif italic text-[#5c4500] text-sm md:text-base leading-relaxed mb-2">
-            Made with love by the Onwuneme children —<br className="hidden md:block" /> six siblings, one family, infinite gratitude.
+            Made with love by the Onwuneme family —<br className="hidden md:block" /> celebrating a beautiful example of a life well lived.
           </p>
           <p className="font-sans text-[#7a5c00]/70 text-sm mt-2">
             Onyinye Chineke — A Gift of God &nbsp;·&nbsp; © 2026
@@ -232,8 +225,6 @@ export default function App() {
     <div className="relative">
       <Navigation />
       <Hero onScrollToEvent={scrollToEvent} />
-      <OurStory />
-      <Timeline />
       <EventSection />
       <Gallery />
       <Tributes />
