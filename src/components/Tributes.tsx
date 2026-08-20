@@ -10,6 +10,8 @@ const CHILD_TRIBUTES = [
   { name: 'Okechukwu', message: "The thing I am most grateful for is that you gave us an example. In a world where love is treated as temporary, you showed us it can be permanent — that it deepens and shines brighter with time. Happy Golden Jubilee, my dearest Papa and Mama. You are our greatest treasure." },
   { name: 'Chukwunonso', message: "Being the last child, I grew up watching you both through grown-up eyes from the very beginning. I saw a partnership built on faith, sacrifice, and an unshakeable bond. You never needed to teach me about love — I simply watched the two of you. Fifty years down, and you still make each other laugh. That is everything. Daalu. I love you both beyond words." },
 ];
+const CHILD_PHOTOS: Record<string, string> = { Chukwuma: '/images/children/chukwuma.jpg' };
+const placeholderPhoto = (index: number) => index % 2 === 0 ? '/images/couple.jpg' : '/images/gallery/portrait.jpg';
 
 export default function Tributes() {
   const [photo, setPhoto] = useState<string | null>(null);
@@ -31,7 +33,7 @@ export default function Tributes() {
               <div className="p-6 md:p-8 flex flex-col min-h-0 flex-1">
                 <div className="flex items-center gap-4 mb-5 flex-shrink-0">
                   <button type="button" aria-label={`Enlarge placeholder portrait for ${tribute.name}`} onClick={() => setPhoto(tribute.name)} className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#d4af37] ring-4 ring-[#d4af37]/15 flex-shrink-0 group">
-                    <img src={index % 2 === 0 ? '/images/couple.jpg' : '/images/gallery/portrait.jpg'} alt="" className="w-full h-full object-cover object-top" />
+                    <img src={CHILD_PHOTOS[tribute.name] ?? placeholderPhoto(index)} alt={`${tribute.name} portrait`} className="w-full h-full object-cover object-top" />
                     <span className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><ZoomIn className="w-4 h-4 text-white" /></span>
                   </button>
                   <h3 className="font-heading font-bold text-xl md:text-2xl text-[#2d1f00]">{tribute.name}</h3>
@@ -45,7 +47,7 @@ export default function Tributes() {
         </div>
       </div>
 
-      {photo && <div role="dialog" aria-modal="true" className="fixed inset-0 z-[65] bg-black/85 backdrop-blur-sm flex items-center justify-center p-6" onClick={() => setPhoto(null)}><div className="relative max-w-lg w-full rounded-2xl bg-[#fdf6e3] p-3 border-2 border-[#d4af37]" onClick={event => event.stopPropagation()}><img src={CHILD_TRIBUTES.find(child => child.name === photo) && (CHILD_TRIBUTES.findIndex(child => child.name === photo) % 2 === 0 ? '/images/couple.jpg' : '/images/gallery/portrait.jpg')} alt={`${photo} placeholder portrait`} className="w-full max-h-[72vh] object-cover object-top rounded-xl" /><p className="font-heading text-center text-[#2d1f00] text-lg mt-3">{photo}</p><button type="button" aria-label="Close portrait" onClick={() => setPhoto(null)} className="absolute top-5 right-5 w-10 h-10 rounded-full bg-[#2d1f00]/85 text-white flex items-center justify-center"><X className="w-5 h-5" /></button></div></div>}
+      {photo && <div role="dialog" aria-modal="true" className="fixed inset-0 z-[65] bg-black/85 backdrop-blur-sm flex items-center justify-center p-6" onClick={() => setPhoto(null)}><div className="relative max-w-lg w-full rounded-2xl bg-[#fdf6e3] p-3 border-2 border-[#d4af37]" onClick={event => event.stopPropagation()}><img src={CHILD_PHOTOS[photo] ?? placeholderPhoto(CHILD_TRIBUTES.findIndex(child => child.name === photo))} alt={`${photo} portrait`} className="w-full max-h-[72vh] object-cover object-top rounded-xl" /><p className="font-heading text-center text-[#2d1f00] text-lg mt-3">{photo}</p><button type="button" aria-label="Close portrait" onClick={() => setPhoto(null)} className="absolute top-5 right-5 w-10 h-10 rounded-full bg-[#2d1f00]/85 text-white flex items-center justify-center"><X className="w-5 h-5" /></button></div></div>}
     </section>
   );
 }
