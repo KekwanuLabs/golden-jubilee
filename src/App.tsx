@@ -42,8 +42,8 @@ function InvitationDialog({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby="invitation-title" className="fixed inset-0 z-[70] bg-[#1a1000]/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8" onClick={onClose}>
-      <div className="relative max-w-3xl w-full max-h-[92vh] rounded-2xl p-2 md:p-3 bg-gradient-to-br from-[#ffe082] via-[#d4af37] to-[#8b6914] shadow-[0_24px_90px_rgba(0,0,0,0.55)]" onClick={event => event.stopPropagation()}>
+    <motion.div role="dialog" aria-modal="true" aria-labelledby="invitation-title" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.24 }} className="fixed inset-0 z-[70] bg-[#1a1000]/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8" onClick={onClose}>
+      <motion.div initial={{ opacity: 0, y: 24, scale: 0.92, rotateX: 3 }} animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }} exit={{ opacity: 0, y: 16, scale: 0.95 }} transition={{ type: 'spring', stiffness: 280, damping: 24 }} className="relative max-w-3xl w-full max-h-[92vh] rounded-2xl p-2 md:p-3 bg-gradient-to-br from-[#ffe082] via-[#d4af37] to-[#8b6914] shadow-[0_24px_90px_rgba(0,0,0,0.55)]" onClick={event => event.stopPropagation()}>
         <div className="relative rounded-xl overflow-hidden bg-[#fdf6e3] p-2 md:p-4">
           <img src="/images/gallery/invitation.jpg" alt="Golden Jubilee invitation" className="relative mx-auto max-h-[84vh] w-auto max-w-full object-contain rounded-lg shadow-lg" />
           <div className="absolute top-4 right-4 flex gap-2">
@@ -59,8 +59,8 @@ function InvitationDialog({ onClose }: { onClose: () => void }) {
           </div>}
           <span id="invitation-title" className="sr-only">Golden Jubilee invitation</span>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -277,7 +277,7 @@ export default function App() {
   return (
     <div className="relative w-full overflow-x-hidden">
       <Navigation onOpenInvitation={() => setInvitationOpen(true)} />
-      {invitationOpen && <InvitationDialog onClose={() => setInvitationOpen(false)} />}
+      <AnimatePresence>{invitationOpen && <InvitationDialog onClose={() => setInvitationOpen(false)} />}</AnimatePresence>
       <Hero onScrollToEvent={scrollToEvent} />
       <EventSection />
       <Gallery />

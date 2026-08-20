@@ -8,6 +8,16 @@ export interface GalleryItem {
   placeholderGradient: string;
 }
 
+const ARCHIVE_PHOTOS: GalleryItem[] = Array.from({ length: 28 }, (_, index) => ({
+  id: index + 3,
+  src: `/images/gallery/photo-${String(index + 1).padStart(2, '0')}.jpg`,
+  year: 'Family Archives',
+  title: 'A Memory Through the Years',
+  caption: 'A treasured moment from our family story',
+  span: index % 5 === 0 ? 'wide' : index % 3 === 0 ? 'tall' : 'normal',
+  placeholderGradient: 'linear-gradient(135deg, #2a1800 0%, #7a5d10 50%, #e0bc50 100%)',
+}));
+
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 1,
@@ -27,4 +37,5 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     span: 'wide',
     placeholderGradient: 'linear-gradient(135deg, #2a1800 0%, #7a5d10 50%, #e0bc50 100%)',
   },
+  ...ARCHIVE_PHOTOS,
 ];
