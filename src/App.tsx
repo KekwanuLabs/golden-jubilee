@@ -50,11 +50,10 @@ function InvitationDialog({ onClose }: { onClose: () => void }) {
   );
 }
 
-function Navigation() {
+function Navigation({ onOpenInvitation }: { onOpenInvitation: () => void }) {
   const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive]         = useState('');
-  const [invitationOpen, setInvitationOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -114,7 +113,7 @@ function Navigation() {
               {active === link.href && <motion.span layoutId="active-nav-indicator" className="absolute left-0 right-0 -bottom-[1px] h-[3px] rounded-full" style={{ background: 'linear-gradient(to right, #b8860b, #ffe082, #b8860b)', boxShadow: '0 0 10px rgba(212,175,55,0.55)' }} transition={{ type: 'spring', stiffness: 420, damping: 32 }} />}
             </button>
           ))}
-          <button type="button" onClick={() => setInvitationOpen(true)} className="relative flex items-center gap-1.5 font-heading font-semibold text-sm uppercase tracking-[0.14em] text-[#4a3500] hover:text-[#7a5c00] transition-colors duration-200 cursor-pointer pb-3 pt-3"><Mail className="w-3.5 h-3.5" /> Invitation</button>
+          <button type="button" onClick={onOpenInvitation} className="relative flex items-center gap-1.5 font-heading font-semibold text-sm uppercase tracking-[0.14em] text-[#4a3500] hover:text-[#7a5c00] transition-colors duration-200 cursor-pointer pb-3 pt-3"><Mail className="w-3.5 h-3.5" /> Invitation</button>
         </div>
 
         <a
@@ -152,7 +151,7 @@ function Navigation() {
                   {link.label}
                 </button>
               ))}
-              <button type="button" onClick={() => { setInvitationOpen(true); setMobileOpen(false); }} className="text-left font-heading font-semibold text-base uppercase tracking-[0.12em] border-l-4 border-transparent pl-4 py-2 text-[#4a3500] hover:border-amber-300 hover:text-[#7a5c00] transition-all cursor-pointer flex items-center gap-2"><Mail className="w-4 h-4" /> Invitation</button>
+              <button type="button" onClick={() => { onOpenInvitation(); setMobileOpen(false); }} className="text-left font-heading font-semibold text-base uppercase tracking-[0.12em] border-l-4 border-transparent pl-4 py-2 text-[#4a3500] hover:border-amber-300 hover:text-[#7a5c00] transition-all cursor-pointer flex items-center gap-2"><Mail className="w-4 h-4" /> Invitation</button>
               <a
                 href="#guestbook"
                 onClick={() => setMobileOpen(false)}
@@ -164,7 +163,6 @@ function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
-      {invitationOpen && <InvitationDialog onClose={() => setInvitationOpen(false)} />}
     </nav>
   );
 }
@@ -257,13 +255,15 @@ function Footer() {
 }
 
 export default function App() {
+  const [invitationOpen, setInvitationOpen] = useState(false);
   const scrollToEvent = useCallback(() => {
     document.getElementById('event')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   return (
     <div className="relative">
-      <Navigation />
+      <Navigation onOpenInvitation={() => setInvitationOpen(true)} />
+      {invitationOpen && <InvitationDialog onClose={() => setInvitationOpen(false)} />}
       <Hero onScrollToEvent={scrollToEvent} />
       <EventSection />
       <Gallery />
