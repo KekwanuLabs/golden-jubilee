@@ -154,7 +154,7 @@ export default function EventSection() {
               'Ideato North LGA, Imo State.',
             ]}
             details="Join us for an afternoon of music, feasting, tributes, and dancing as we celebrate this golden milestone in the Onwuneme family home."
-            mapQuery="Onwuneme Compound, Umuago Urualla, Ideato North, Imo State"
+            mapQuery="5.857407, 7.069914"
             delay={0.25}
           />
         </div>
