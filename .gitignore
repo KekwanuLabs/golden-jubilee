@@ -6,3 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local working files
+brochure/
+output/
+golden_jubilee_invitation_copy_revised.png
+golden_jubilee_invitation_updated.png
